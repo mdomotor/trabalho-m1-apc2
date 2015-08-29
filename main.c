@@ -218,7 +218,7 @@ void buscarFilmesPorGenero(char chave[30]) {
 	int cont=0;
 	
 	for (i = 0; i < sizeof(filmes); i++) {
-		if (strcmp(chave, filmes[i].genero) == 0)
+		if (strcmp(strlwr(chave), strlwr(filmes[i].genero) == 0)
 			imprimirFilme(filmes[i]);
 			cont++;
 	}
@@ -237,7 +237,7 @@ void buscarFilmesPorNome(char chave[50]) {
 	int cont=0;
 	
 	for (i = 0; i < sizeof(filmes); i++) {
-		if (strcmp(chave, filmes[i].nome) == 0)
+		if (strcmp(strlwr(chave), strlwr(filmes[i].nome)) == 0)
 			imprimirFilme(filmes[i]);
 			cont++;
 	}
@@ -271,7 +271,7 @@ void buscarFilmesPorStatus(int chave) {
 int checarFilme(char nome[50]) {
 	int i;
 	for (i = 0; i < sizeof(filmes); i++) {
-		if (strcmp(filmes[i].nome, nome) == 0)
+		if (strcmp(strlwr(filmes[i].nome), strlwr(nome)) == 0)
 			return 0;
 		else
 			return 1;
