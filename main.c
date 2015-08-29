@@ -33,12 +33,13 @@ typedef struct dadosSessao {
 	Filme filme;
 } Sessao;
 
+int contF = 0;
 Filme *filmes;
 
 const char * imprimeStatus(StatusFilme status);
 StatusFilme recebeStatus(int status);
 
-Filme inserirFilme();
+void inserirFilme();
 void imprimeFilme(Filme filme);
 void listarFilmes();
 StatusFilme alterarStatus();
@@ -48,10 +49,12 @@ void buscarFilmesPorStatus(int chave);
 int checaFilme(char nome[50]);
 
 int main(int argc, char *argv[]) {
+	int menu;
 
 	printf("\n-----------------------------\n");
 	printf("Sistema de Gerenciamento de Sessoes\n");
 	
+	inserirFilme();
 	
 	
 	return 0;
@@ -99,27 +102,67 @@ void imprimeFilme(Filme filme) {
 }
 
 // funcao para inserir novos filmes
-Filme inserirFilme() {
+void inserirFilme() {
 	Filme novoF;
 	int i;
+	char nome[50];
+	char genero[30];
+	char acao = 'c';
+
 	
 	printf("\n-----------------------------\n");
 	printf("Novo Filme:\n");
-	printf("Titulo:");
-	fgets(novoF.nome, 50, stdin);
-	printf("Genero: ");
-	fgets(novoF.genero, 30, stdin);
+
+	do {
+		printf("Titulo (obrigatorio):");
+		fgets(nome, 50, stdin);
+	} while (strlen(nome) < 1);
+
+	int filmeOk = checaFilme(nome);
+
+	while (filmeOk == 0) {
+		printf("Filme ja existente.\nDigite 'c' para tentar de novo ou 's' para sair: ");
+		scanf("%c", &acao);
+		if (acao != 'c') {
+			exit(0);
+		} else {
+			do {
+				printf("Titulo (obrigatorio):");
+				fgets(nome, 50, stdin);
+			} while (strlen(nome) < 1);
+
+			filmeOk = checaFilme(nome);
+		}
+	}
+
+	novoF.nome = nome;
+	
+	do {
+		printf("Genero (obrigatorio): ");
+		fgets(genero, 30, stdin);
+	} while (strlen(genero) < 1);
+
+	novoF.genero = genero;
+
 	printf("Sinopse: ");
 	fgets(novoF.sinopse, 500, stdin);
-	printf("Status: (0. em breve / 1. em exibicao / 2. fora de exibicao) ");
-	scanf("%i", &i);
+
+	do {
+		printf("Status (obrigatorio - 0. em breve / 1. em exibicao / 2. fora de exibicao): ");
+		scanf("%i", &i);
+	} while ((i >= 0)||(i <= 2));
+
 	novoF.status = recebeStatus(i);
+
 	fflush(stdin);
+
 	printf("Ano de Lancamento: ");
 	scanf("%i", &novoF.ano);
+
 	fflush(stdin);
-	
-	return novoF;
+
+	filmes[contF] = novoF;
+	contF++;
 }
 
 // funcao para listar todos os filmes
