@@ -35,11 +35,14 @@ typedef struct dadosSessao {
 
 int contF = 0;
 Filme *filmes;
+int contS = 0;
+Sessao *sessoes;
 
-const char * imprimeStatus(StatusFilme status);
-StatusFilme recebeStatus(int status);
+const char * imprimirStatus(StatusFilme status);
+StatusFilme receberStatus(int status);
 
 void inserirFilme();
+void criarSessao();
 void imprimirFilme(Filme filme);
 void listarFilmes();
 StatusFilme alterarStatus();
@@ -61,7 +64,7 @@ int main(int argc, char *argv[]) {
 }
 
 // imprime valor do enum StatusFilme
-const char * imprimeStatus(StatusFilme status) {
+const char * imprimirStatus(StatusFilme status) {
 	switch(status) {
 		case 0:
 			return "Em Breve";
@@ -76,7 +79,7 @@ const char * imprimeStatus(StatusFilme status) {
 }
 
 // retorne o valor do enum StatusFilme
-StatusFilme recebeStatus(int status) {
+StatusFilme receberStatus(int status) {
 	switch(status) {
 		case 0:
 			return BREVE;
@@ -96,7 +99,7 @@ void imprimirFilme(Filme filme) {
 	printf("Nome: %s\n", filme.nome);
 	printf("Genero: %s\n", filme.genero);
 	printf("Sinopse: %s\n", filme.sinopse);
-	printf("Status: %s\n", imprimeStatus(filme.status));
+	printf("Status: %s\n", imprimirStatus(filme.status));
 	printf("Ano: %d\n", filme.ano);
 	printf("\n-----------------------------\n");
 }
@@ -118,7 +121,7 @@ void inserirFilme() {
 		fgets(nome, 50, stdin);
 	} while (strlen(nome) < 1);
 
-	int filmeOk = checaFilme(nome);
+	int filmeOk = checarFilme(nome);
 	
 	// verifica se o titulo foi preenchido
 	while (filmeOk == 0) {
@@ -132,7 +135,7 @@ void inserirFilme() {
 				fgets(nome, 50, stdin);
 			} while (strlen(nome) < 1);
 
-			filmeOk = checaFilme(nome);
+			filmeOk = checarFilme(nome);
 		}
 	}
 
@@ -155,7 +158,7 @@ void inserirFilme() {
 		scanf("%i", &i);
 	} while ((i >= 0)||(i <= 2));
 
-	novoF.status = recebeStatus(i);
+	novoF.status = receberStatus(i);
 
 	fflush(stdin);
 
@@ -168,13 +171,18 @@ void inserirFilme() {
 	contF++;
 }
 
+// funcao para criar nova sessao
+void criarSessao() {
+	
+}
+
 // funcao para listar todos os filmes
 void listarFilmes() {
 	printf("\n-----------------------------\n");
 	printf("Lista de filmes:\n\n");
 	int i;
 	for (i = 0; i < sizeof(filmes); i++) {
-		 imprimeFilme(filmes[i]);
+		 imprimirFilme(filmes[i]);
 	}
 }
 
@@ -187,7 +195,7 @@ StatusFilme alterarStatus() {
 	scanf("%i", &status);
 	fflush(stdin);
 	
-	return recebeStatus(status);
+	return receberStatus(status);
 }
 
 // funcao para listar os filmes por genero
@@ -200,7 +208,7 @@ void buscarFilmesPorGenero(char chave[30]) {
 	
 	for (i = 0; i < sizeof(filmes); i++) {
 		if (strcmp(chave, filmes[i].genero) == 0)
-			imprimeFilme(filmes[i]);
+			imprimirFilme(filmes[i]);
 			cont++;
 	}
 	
@@ -219,7 +227,7 @@ void buscarFilmesPorNome(char chave[50]) {
 	
 	for (i = 0; i < sizeof(filmes); i++) {
 		if (strcmp(chave, filmes[i].nome) == 0)
-			imprimeFilme(filmes[i]);
+			imprimirFilme(filmes[i]);
 			cont++;
 	}
 	
@@ -231,14 +239,14 @@ void buscarFilmesPorNome(char chave[50]) {
 // funcao para listar os filmes por status 
 void buscarFilmesPorStatus(int chave) {
 	printf("\n-----------------------------\n");
-	printf("Resultados para %s:\n", imprimeStatus(chave));
+	printf("Resultados para %s:\n", imprimirStatus(chave));
 
 	int i;
 	int cont=0;
 	
 	for (i = 0; i < sizeof(filmes); i++) {
 		if (filmes[i].status == chave) {
-			imprimeFilme(filmes[i]);
+			imprimirFilme(filmes[i]);
 			cont++;
 		}
 	}
