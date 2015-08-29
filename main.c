@@ -39,6 +39,7 @@ void listarFilmes(Filme filmes[]);
 int alterarStatus();
 void buscarFilmesPorGenero(char chave[30], Filme filmes[]);
 void buscarFilmesPorNome(char chave[50], Filme filmes[]);
+void buscarFilmesPorStatus(int chave, Filme filmes[]);
 
 int main(int argc, char *argv[]) {
 	return 0;
@@ -115,10 +116,21 @@ void buscarFilmesPorGenero(char chave[30], Filme filmes[]) {
 	}
 }
 
-void buscarFilmesPorGenero(char chave[50], Filme filmes[]) {
+// funcao para listar os filmes por nome
+void buscarFilmesPorNome(char chave[50], Filme filmes[]) {
 	int i;
 	for (i = 0; i < sizeof(filmes); i++) {
 		if (strcmp(chave, filmes[i].nome) == 0)
 			imprimeFilme(filmes[i]);
+	}
+}
+
+// funcao para listar os filmes por status 
+void buscarFilmesPorStatus(int chave, Filme filmes[]) {
+	int i;
+	for (i = 0; i < sizeof(filmes); i++) {
+		if (filmes[i].status == chave) {
+			imprimeFilme(filmes[i]);
+		}
 	}
 }
