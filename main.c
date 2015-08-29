@@ -8,25 +8,28 @@
 * Descrição do programa: Trabalho M1 - Sistema de Cinema *
 ************************************************************/
 
-enum statusFilme { breve, exibicao, fora_exibicao };
+typedef enum statusFilme {
+	breve,
+	exibicao,
+	fora_exibicao
+} StatusFilme;
 
-struct filmes
-{
+typedef struct filmes {
 	char filme[50];
 	char genero[30];
 	char sinopse[500];
 	enum statusFilme status;
 	char ano[4];
-};
+} Filme;
 
-struct dadosSessao {
+typedef struct dadosSessao {
 	int sala;
 	int qtdLugares;
 	float preco;
 	struct filmes filme;
-};
+} Sessao;
 
-void listarFilmes(dadosSessao )
+void listarFilmes(Filme filmes[]);
 
 int main(int argc, char *argv[]) {
 	return 0;
