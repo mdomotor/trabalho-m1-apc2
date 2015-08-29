@@ -29,6 +29,7 @@ typedef enum Menu {
 
 // struct com os dados do filme
 typedef struct filmes {
+	int codigo;
 	char nome[50];
 	char genero[30];
 	char sinopse[500];
@@ -107,6 +108,7 @@ StatusFilme receberStatus(int status) {
 // funcao para imprimir o filme
 void imprimirFilme(Filme filme) {
 	printf("\n-----------------------------\n");
+	printf("Codigo: %d\n", filme.codigo);
 	printf("Nome: %s\n", filme.nome);
 	printf("Genero: %s\n", filme.genero);
 	printf("Sinopse: %s\n", filme.sinopse);
@@ -177,6 +179,8 @@ void inserirFilme() {
 	scanf("%i", &novoF.ano);
 
 	fflush(stdin);
+
+	novoF.codigo = contF;
 
 	filmes[contF] = novoF;
 	contF++;
