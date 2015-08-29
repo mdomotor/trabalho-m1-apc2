@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /***********************************************************
 * Nome Aluno: Lucas da Silva Marques	RA: 40795448805 *
@@ -37,7 +38,7 @@ Filme inserirFilme();
 void listarFilmes(Filme filmes[]);
 int alterarStatus();
 void buscarFilmesPorGenero(char chave[30], Filme filmes[]);
-
+void buscarFilmesPorNome(char chave[50], Filme filmes[]);
 void buscarFilmesPorStatus(int chave, Filme filmes[]);
 
 int main(int argc, char *argv[]) {
@@ -110,14 +111,19 @@ int alterarStatus() {
 void buscarFilmesPorGenero(char chave[30], Filme filmes[]) {
 	int i;
 	for (i = 0; i < sizeof(filmes); i++) {
-		if (filmes[i].genero == chave) {
+		if (strcmp(chave, filmes[i].genero) == 0)
 			imprimeFilme(filmes[i]);
-		}
 	}
 }
 
-
-
+// funcao para listar os filmes por nome
+void buscarFilmesPorNome(char chave[50], Filme filmes[]) {
+	int i;
+	for (i = 0; i < sizeof(filmes); i++) {
+		if (strcmp(chave, filmes[i].nome) == 0)
+			imprimeFilme(filmes[i]);
+	}
+}
 
 // funcao para listar os filmes por status 
 void buscarFilmesPorStatus(int chave, Filme filmes[]) {
@@ -128,5 +134,3 @@ void buscarFilmesPorStatus(int chave, Filme filmes[]) {
 		}
 	}
 }
-
-
