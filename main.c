@@ -16,6 +16,17 @@ typedef enum statusFilme {
 	FORA_EXIBICAO
 } StatusFilme;
 
+typedef enum Menu {
+	SAIR=0,
+	INSERIR_FILME,
+	CRIAR_SESSAO,
+	LISTAR_FILMES,
+	ALTERAR_STATUS,
+	BUSCAR_POR_GENERO,
+	BUSCAR_POR_NOME,
+	BUSCAR_POR_STATUS
+} Menu;
+
 // struct com os dados do filme
 typedef struct filmes {
 	char nome[50];
@@ -47,14 +58,14 @@ void buscarFilmesPorGenero(char chave[30]);
 void buscarFilmesPorNome(char chave[50]);
 void buscarFilmesPorStatus(int chave);
 int checaFilme(char nome[50]);
+void imprimirMenu();
 
 int main(int argc, char *argv[]) {
 	int menu;
 
 	printf("\n-----------------------------\n");
 	printf("Sistema de Gerenciamento de Sessoes\n");
-	
-	inserirFilme();
+	imprimirMenu();
 	
 	
 	return 0;
@@ -115,8 +126,8 @@ void inserirFilme() {
 
 	do {
 		printf("Titulo (obrigatorio):");
-		fgets(nome, 50, stdin);
-	} while (strlen(nome) < 1);
+		fgets(novoF.nome, 50, stdin);
+	} while (strlen(novoF.nome) < 1);
 
 	int filmeOk = checaFilme(nome);
 
@@ -235,5 +246,14 @@ int checaFilme(char nome[50]) {
 	}
 }
 
-
-
+void imprimirMenu() {
+	printf("MENU\n");
+	printf("1 - Inserir Filme\n");
+	printf("2 - Criar Sessao\n");
+	printf("3 - Listar Filmes\n");
+	printf("4 - Alterar Status\n");
+	printf("5 - Buscar Filme por Genero\n");
+	printf("6 - Buscar Filme por Nome\n");
+	printf("7 - Buscar Filme por Status\n");
+	printf("0 - Sair\n");
+}
