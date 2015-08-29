@@ -40,13 +40,13 @@ const char * imprimeStatus(StatusFilme status);
 StatusFilme recebeStatus(int status);
 
 void inserirFilme();
-void imprimeFilme(Filme filme);
+void imprimirFilme(Filme filme);
 void listarFilmes();
 StatusFilme alterarStatus();
 void buscarFilmesPorGenero(char chave[30]);
 void buscarFilmesPorNome(char chave[50]);
 void buscarFilmesPorStatus(int chave);
-int checaFilme(char nome[50]);
+int checarFilme(char nome[50]);
 
 int main(int argc, char *argv[]) {
 	int menu;
@@ -91,7 +91,7 @@ StatusFilme recebeStatus(int status) {
 }
 
 // funcao para imprimir o filme
-void imprimeFilme(Filme filme) {
+void imprimirFilme(Filme filme) {
 	printf("\n-----------------------------\n");
 	printf("Nome: %s\n", filme.nome);
 	printf("Genero: %s\n", filme.genero);
@@ -196,9 +196,16 @@ void buscarFilmesPorGenero(char chave[30]) {
 	printf("Resultados para %s:\n", chave);
 
 	int i;
+	int cont=0;
+	
 	for (i = 0; i < sizeof(filmes); i++) {
 		if (strcmp(chave, filmes[i].genero) == 0)
 			imprimeFilme(filmes[i]);
+			cont++;
+	}
+	
+	if (cont==0) {
+		printf("Nenhum filme encontrado.");
 	}
 }
 
@@ -208,9 +215,16 @@ void buscarFilmesPorNome(char chave[50]) {
 	printf("Resultados para %s:\n", chave);
 
 	int i;
+	int cont=0;
+	
 	for (i = 0; i < sizeof(filmes); i++) {
 		if (strcmp(chave, filmes[i].nome) == 0)
 			imprimeFilme(filmes[i]);
+			cont++;
+	}
+	
+	if (cont==0) {
+		printf("Nenhum filme encontrado.");
 	}
 }
 
@@ -220,15 +234,22 @@ void buscarFilmesPorStatus(int chave) {
 	printf("Resultados para %s:\n", imprimeStatus(chave));
 
 	int i;
+	int cont=0;
+	
 	for (i = 0; i < sizeof(filmes); i++) {
 		if (filmes[i].status == chave) {
 			imprimeFilme(filmes[i]);
+			cont++;
 		}
+	}
+	
+	if (cont==0) {
+		printf("Nenhum filme encontrado.");
 	}
 }
 
 // funcao para checar se o filme existe (0) ou nao (1)
-int checaFilme(char nome[50]) {
+int checarFilme(char nome[50]) {
 	int i;
 	for (i = 0; i < sizeof(filmes); i++) {
 		if (strcmp(filmes[i].nome, nome) == 0)
