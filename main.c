@@ -33,18 +33,18 @@ typedef struct dadosSessao {
 } Sessao;
 
 void imprimeFilme(Filme filme);
-void listarFilmes(Filme filmes[]);
-void buscarFilmesPorGenero(char chave[30], Filme filmes[]);
 Filme inserirFilme();
-
+void listarFilmes(Filme filmes[]);
 int alterarStatus();
+void buscarFilmesPorGenero(char chave[30], Filme filmes[]);
 
 int main(int argc, char *argv[]) {
 	return 0;
 }
 
+// funcao para imprimir o filme
 void imprimeFilme(Filme filme) {
-	printf("\n########################\n");
+	printf("\n-----------------------------\n");
 	printf("Nome: %s\n", filme.nome);
 	printf("Genero: %s\n", filme.genero);
 	printf("Sinopse: %s\n", filme.sinopse);
@@ -62,23 +62,7 @@ void imprimeFilme(Filme filme) {
 	}
 
 	printf("Ano: %d\n", filme.ano);
-	printf("\n########################\n");
-}
-
-void listarFilmes(Filme filmes[]) {
-	int i;
-	for (i = 0; i < sizeof(filmes); i++) {
-		 imprimeFilme(filmes[i]);
-	}
-}
-
-void buscarFilmesPorGenero(char chave[30], Filme filmes[]) {
-	int i;
-	for (i = 0; i < sizeof(filmes); i++) {
-		if (filmes[i].genero == chave) {
-			imprimeFilme(filmes[i]);
-		}
-	}
+	printf("\n-----------------------------\n");
 }
 
 // funcao para inserir novos filmes
@@ -101,6 +85,14 @@ Filme inserirFilme() {
 	return novoF;
 }
 
+// funcao para listar todos os filmes
+void listarFilmes(Filme filmes[]) {
+	int i;
+	for (i = 0; i < sizeof(filmes); i++) {
+		 imprimeFilme(filmes[i]);
+	}
+}
+
 // funcao para alterar status do filme
 int alterarStatus() {
 	int status;
@@ -111,3 +103,18 @@ int alterarStatus() {
 	
 	return status;
 }
+
+// funcao para listar os filmes por genero
+void buscarFilmesPorGenero(char chave[30], Filme filmes[]) {
+	int i;
+	for (i = 0; i < sizeof(filmes); i++) {
+		if (filmes[i].genero == chave) {
+			imprimeFilme(filmes[i]);
+		}
+	}
+}
+
+
+
+
+
