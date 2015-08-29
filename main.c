@@ -65,7 +65,7 @@ int checarFilme(char nome[50]);
 
 int main(int argc, char *argv[]) {
 	int menu;
-
+	
 	printf("\n-----------------------------\n");
 	printf("Sistema de Gerenciamento de Sessoes\n");
 	imprimirMenu();
@@ -184,7 +184,19 @@ void inserirFilme() {
 
 // funcao para criar nova sessao
 void criarSessao() {
+	Sessao novaS;
+	int i;
 	
+	printf("\n-----------------------------\n");
+	printf("Nova Sessao:\nSala: ");
+	scanf("%i", novaS.sala);
+	printf("Quantidade de Lugares: ");
+	scanf("%i", novaS.qtdLugares);
+	printf("Preco do ingresso: ");
+	scanf("%f", novaS.preco);
+	printf("Codigo do Filme: ");
+	scanf("%i", i);
+	novaS.filme = filmes[i];	
 }
 
 // funcao para listar todos os filmes
