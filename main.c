@@ -6,7 +6,7 @@
 * Nome Aluno: Lucas da Silva Marques	RA: 40795448805 *
 * Nome Aluno: Mara Regina Domotor		RA: 42566937850 *
 * Data: 29/08/2015 *
-* Descrição do programa: Trabalho M1 - Sistema de Cinema *
+* Descricao do programa: Trabalho M1 - Sistema de Cinema *
 ************************************************************/
 
 // opcoes de status de filme
@@ -33,23 +33,27 @@ typedef struct dadosSessao {
 	Filme filme;
 } Sessao;
 
+Filme *filmes;
+
 const char * imprimeStatus(StatusFilme status);
 StatusFilme recebeStatus(int status);
 
 Filme inserirFilme();
 void imprimeFilme(Filme filme);
-void listarFilmes(Filme filmes[]);
-int alterarStatus();
-void buscarFilmesPorGenero(char chave[30], Filme filmes[]);
-void buscarFilmesPorNome(char chave[50], Filme filmes[]);
-void buscarFilmesPorStatus(int chave, Filme filmes[]);
-int checaFilme(char nome[50], Filme filmes[]);
+void listarFilmes();
+StatusFilme alterarStatus();
+void buscarFilmesPorGenero(char chave[30]);
+void buscarFilmesPorNome(char chave[50]);
+void buscarFilmesPorStatus(int chave);
+int checaFilme(char nome[50]);
 
 int main(int argc, char *argv[]) {
 
 	printf("\n-----------------------------\n");
 	printf("Sistema de Gerenciamento de Sessoes\n");
-
+	
+	
+	
 	return 0;
 }
 
@@ -89,19 +93,7 @@ void imprimeFilme(Filme filme) {
 	printf("Nome: %s\n", filme.nome);
 	printf("Genero: %s\n", filme.genero);
 	printf("Sinopse: %s\n", filme.sinopse);
-
-	switch (filme.status) {
-		case BREVE:
-			printf("Status: Em Breve\n");
-		break;
-		case EXIBICAO:
-			printf("Status: Em Exibicao\n");
-		break;
-		case FORA_EXIBICAO:
-			printf("Status: Fora de Exibicao\n");
-		break;
-	}
-
+	printf("Status: %s\n", imprimeStatus(filme.status));
 	printf("Ano: %d\n", filme.ano);
 	printf("\n-----------------------------\n");
 }
@@ -109,6 +101,7 @@ void imprimeFilme(Filme filme) {
 // funcao para inserir novos filmes
 Filme inserirFilme() {
 	Filme novoF;
+	int i;
 	
 	printf("\n-----------------------------\n");
 	printf("Novo Filme:\n");
@@ -119,7 +112,6 @@ Filme inserirFilme() {
 	printf("Sinopse: ");
 	fgets(novoF.sinopse, 500, stdin);
 	printf("Status: (0. em breve / 1. em exibicao / 2. fora de exibicao) ");
-	int i;
 	scanf("%i", &i);
 	novoF.status = recebeStatus(i);
 	fflush(stdin);
@@ -131,7 +123,7 @@ Filme inserirFilme() {
 }
 
 // funcao para listar todos os filmes
-void listarFilmes(Filme filmes[]) {
+void listarFilmes() {
 	printf("\n-----------------------------\n");
 	printf("Lista de filmes:\n\n");
 	int i;
@@ -141,7 +133,7 @@ void listarFilmes(Filme filmes[]) {
 }
 
 // funcao para alterar status do filme
-int alterarStatus() {
+StatusFilme alterarStatus() {
 	int status;
 	
 	printf("\n-----------------------------\n");
@@ -153,7 +145,7 @@ int alterarStatus() {
 }
 
 // funcao para listar os filmes por genero
-void buscarFilmesPorGenero(char chave[30], Filme filmes[]) {
+void buscarFilmesPorGenero(char chave[30]) {
 	printf("\n-----------------------------\n");
 	printf("Resultados para %s:\n", chave);
 
@@ -165,7 +157,7 @@ void buscarFilmesPorGenero(char chave[30], Filme filmes[]) {
 }
 
 // funcao para listar os filmes por nome
-void buscarFilmesPorNome(char chave[50], Filme filmes[]) {
+void buscarFilmesPorNome(char chave[50]) {
 	printf("\n-----------------------------\n");
 	printf("Resultados para %s:\n", chave);
 
@@ -177,7 +169,7 @@ void buscarFilmesPorNome(char chave[50], Filme filmes[]) {
 }
 
 // funcao para listar os filmes por status 
-void buscarFilmesPorStatus(int chave, Filme filmes[]) {
+void buscarFilmesPorStatus(int chave) {
 	printf("\n-----------------------------\n");
 	printf("Resultados para %s:\n", imprimeStatus(chave));
 
@@ -189,7 +181,8 @@ void buscarFilmesPorStatus(int chave, Filme filmes[]) {
 	}
 }
 
-int checaFilme(char nome[50], Filme filmes[]) {
+// funcao para checar se o filme existe (0) ou nao (1)
+int checaFilme(char nome[50]) {
 	int i;
 	for (i = 0; i < sizeof(filmes); i++) {
 		if (strcmp(filmes[i].nome, nome) == 0)
@@ -198,3 +191,6 @@ int checaFilme(char nome[50], Filme filmes[]) {
 			return 1;
 	}
 }
+
+
+
