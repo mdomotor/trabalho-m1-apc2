@@ -108,18 +108,19 @@ void inserirFilme() {
 	char nome[50];
 	char genero[30];
 	char acao = 'c';
-
 	
 	printf("\n-----------------------------\n");
 	printf("Novo Filme:\n");
-
+	
+	// verifica se o titulo ja existe
 	do {
 		printf("Titulo (obrigatorio):");
 		fgets(nome, 50, stdin);
 	} while (strlen(nome) < 1);
 
 	int filmeOk = checaFilme(nome);
-
+	
+	// verifica se o titulo foi preenchido
 	while (filmeOk == 0) {
 		printf("Filme ja existente.\nDigite 'c' para tentar de novo ou 's' para sair: ");
 		scanf("%c", &acao);
@@ -135,18 +136,20 @@ void inserirFilme() {
 		}
 	}
 
-	novoF.nome = nome;
+	strcpy(novoF.nome, nome);
 	
+	// verifica se o genero foi preenchido
 	do {
 		printf("Genero (obrigatorio): ");
 		fgets(genero, 30, stdin);
 	} while (strlen(genero) < 1);
 
-	novoF.genero = genero;
+	strcpy(novoF.genero, genero);
 
 	printf("Sinopse: ");
 	fgets(novoF.sinopse, 500, stdin);
 
+	// verifica se o status foi preenchido
 	do {
 		printf("Status (obrigatorio - 0. em breve / 1. em exibicao / 2. fora de exibicao): ");
 		scanf("%i", &i);
