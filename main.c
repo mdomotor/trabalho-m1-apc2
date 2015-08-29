@@ -8,12 +8,14 @@
 * Descrição do programa: Trabalho M1 - Sistema de Cinema *
 ************************************************************/
 
+// opcoes de status de filme
 typedef enum statusFilme {
 	breve,
 	exibicao,
 	fora_exibicao
 } StatusFilme;
 
+// struct com os dados do filme
 typedef struct filmes {
 	char nome[50];
 	char genero[30];
@@ -22,6 +24,7 @@ typedef struct filmes {
 	int ano;
 } Filme;
 
+// scruct com os dados da sessao
 typedef struct dadosSessao {
 	int sala;
 	int qtdLugares;
@@ -32,6 +35,9 @@ typedef struct dadosSessao {
 void imprimeFilme(Filme filme);
 void listarFilmes(Filme filmes[]);
 void buscarFilmesPorGenero(char chave[30], Filme filmes[]);
+Filme inserirFilme();
+
+int alterarStatus();
 
 int main(int argc, char *argv[]) {
 	return 0;
@@ -73,4 +79,35 @@ void buscarFilmesPorGenero(char chave[30], Filme filmes[]) {
 			imprimeFilme(filmes[i]);
 		}
 	}
+}
+
+// funcao para inserir novos filmes
+Filme inserirFilme() {
+	Filme novoF;
+	
+	printf("Novo Filme: \nTitulo: ");
+	fgets(novoF.nome, 50, stdin);
+	printf("Genero: ");
+	fgets(novoF.genero, 30, stdin);
+	printf("Sinopse: ");
+	fgets(novoF.sinopse, 500, stdin);
+	printf("Status: (0. em breve / 1. em exibicao / 2. fora de exibicao) ");
+	scanf("%i", novoF.status);
+	fflush(stdin);
+	printf("Ano de Lancamento: ");
+	scanf("%i", novoF.ano);
+	fflush(stdin);
+	
+	return novoF;
+}
+
+// funcao para alterar status do filme
+int alterarStatus() {
+	int status;
+	
+	printf("Alterar filme:\nDigite o novo status (0. em breve / 1. em exibicao / 2. fora de exibicao): ");
+	scanf("%i", status);
+	fflush(stdin);
+	
+	return status;
 }
