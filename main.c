@@ -57,20 +57,74 @@ void inserirFilme();
 void criarSessao();
 void imprimirFilme(Filme filme);
 void listarFilmes();
-StatusFilme alterarStatus();
+void alterarStatus();
 void buscarFilmesPorGenero(char chave[30]);
 void buscarFilmesPorNome(char chave[50]);
 void buscarFilmesPorStatus(int chave);
 void imprimirMenu();
 int checarFilme(char nome[50]);
+int pedirAcao();
 
 int main(int argc, char *argv[]) {
-	int menu;
+	int acao;
+	char chave[50];
+	int chaveI;
 	
 	printf("\n-----------------------------\n");
 	printf("Sistema de Gerenciamento de Sessoes\n");
-	imprimirMenu();
-	
+
+	do {
+		imprimirMenu();
+
+		acao = pedirAcao();
+
+		switch(acao) {
+			case 0:
+				printf("\n-----------------------------\n");
+				printf("Fim de execucao.\n");
+			break;
+			case 1:
+				inserirFilme();
+			break;
+			case 2:
+				criarSessao();
+			break;
+			case 3:
+				listarFilmes();
+			break;
+			case 4:
+				alterarStatus();
+			break;
+			case 5:
+				printf("\n-----------------------------\n");
+				printf("Busca por filme por genero:\n");
+				printf("Genero: ");
+				fgets(chave, 30, stdin);
+				buscarFilmesPorGenero(chave);
+			break;
+			case 6:
+				printf("\n-----------------------------\n");
+				printf("Busca por filme por nome:\n");
+				printf("Nome: ");
+				fgets(chave, 50, stdin);
+				buscarFilmesPorNome(chave);
+			break;
+			case 7:
+				printf("\n-----------------------------\n");
+				printf("Busca por filme por status:\n");
+				printf("Status (0. em breve / 1. em exibicao / 2. fora de exibicao): ");
+				scanf("%d", &chaveI);
+				buscarFilmesPorStatus(chaveI);
+			break;
+			default:
+				printf("Opcao Invalida.\n");
+			break;
+
+		}
+	} while (acao != 0);
+
+	printf("\n-----------------------------\n");
+	printf("Fim de execucao.\n");
 	
 	return 0;
 }
@@ -193,13 +247,13 @@ void criarSessao() {
 	
 	printf("\n-----------------------------\n");
 	printf("Nova Sessao:\nSala: ");
-	scanf("%i", novaS.sala);
+	scanf("%i", &novaS.sala);
 	printf("Quantidade de Lugares: ");
-	scanf("%i", novaS.qtdLugares);
+	scanf("%i", &novaS.qtdLugares);
 	printf("Preco do ingresso: ");
-	scanf("%f", novaS.preco);
+	scanf("%f", &novaS.preco);
 	printf("Codigo do Filme: ");
-	scanf("%i", i);
+	scanf("%i", &i);
 	novaS.filme = filmes[i];	
 }
 
@@ -214,15 +268,21 @@ void listarFilmes() {
 }
 
 // funcao para alterar status do filme
-StatusFilme alterarStatus() {
+void alterarStatus() {
+	int cod;
 	int status;
 	
 	printf("\n-----------------------------\n");
-	printf("Alterar filme:\nDigite o novo status (0. em breve / 1. em exibicao / 2. fora de exibicao): ");
+	printf("Alterar status do Filme:\n");
+
+	printf("Codigo do Filme:");
+	scanf("%d", &cod);
+
+	printf("Digite o novo status (0. em breve / 1. em exibicao / 2. fora de exibicao): ");
 	scanf("%i", &status);
 	fflush(stdin);
-	
-	return receberStatus(status);
+
+	filmes[cod].status = receberStatus(status);
 }
 
 // funcao para listar os filmes por genero
@@ -234,7 +294,7 @@ void buscarFilmesPorGenero(char chave[30]) {
 	int cont=0;
 	
 	for (i = 0; i < sizeof(filmes); i++) {
-		if (strcmp(strlwr(chave), strlwr(filmes[i].genero) == 0)
+		if (strcmp(chave, filmes[i].genero) == 0)
 			imprimirFilme(filmes[i]);
 			cont++;
 	}
@@ -253,7 +313,7 @@ void buscarFilmesPorNome(char chave[50]) {
 	int cont=0;
 	
 	for (i = 0; i < sizeof(filmes); i++) {
-		if (strcmp(strlwr(chave), strlwr(filmes[i].nome)) == 0)
+		if (strcmp(chave, filmes[i].nome) == 0)
 			imprimirFilme(filmes[i]);
 			cont++;
 	}
@@ -287,7 +347,7 @@ void buscarFilmesPorStatus(int chave) {
 int checarFilme(char nome[50]) {
 	int i;
 	for (i = 0; i < sizeof(filmes); i++) {
-		if (strcmp(strlwr(filmes[i].nome), strlwr(nome)) == 0)
+		if (strcmp(filmes[i].nome, nome) == 0)
 			return 0;
 		else
 			return 1;
@@ -304,4 +364,14 @@ void imprimirMenu() {
 	printf("6 - Buscar Filme por Nome\n");
 	printf("7 - Buscar Filme por Status\n");
 	printf("0 - Sair\n");
+}
+
+int pedirAcao() {
+	int i;
+
+	printf("\n-----------------------------\n");
+	printf("Fazer:");
+	scanf("%d", &i);
+
+	return i;
 }
